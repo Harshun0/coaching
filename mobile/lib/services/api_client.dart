@@ -3,8 +3,7 @@ import 'package:http/http.dart' as http;
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'device_id.dart';
 
-/// Change this to the deployed backend URL (Vercel) before release.
-const String apiBaseUrl = 'http://localhost:3000/api';
+const String apiBaseUrl = 'https://coaching-beta-seven.vercel.app/api';
 
 class ApiException implements Exception {
   final String message;
