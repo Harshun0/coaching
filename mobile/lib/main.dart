@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:no_screenshot/no_screenshot.dart';
 import 'screens/login_screen.dart';
+import 'theme.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -17,7 +18,8 @@ class CoachingApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Coaching',
-      theme: ThemeData(colorSchemeSeed: Colors.deepPurple, useMaterial3: true),
+      debugShowCheckedModeBanner: false,
+      theme: buildAppTheme(),
       home: const LoginScreen(),
     );
   }

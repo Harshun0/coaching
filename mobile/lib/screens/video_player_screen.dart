@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:video_player/video_player.dart';
 import '../services/api_client.dart';
+import '../theme.dart';
 
 class VideoPlayerScreen extends StatefulWidget {
   final String lessonId;
@@ -47,19 +48,35 @@ class _VideoPlayerScreenState extends State<VideoPlayerScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text(widget.lessonTitle)),
+      backgroundColor: Colors.black,
+      appBar: AppBar(
+        backgroundColor: Colors.black,
+        foregroundColor: Colors.white,
+        title: Text(widget.lessonTitle),
+      ),
       body: Center(
         child: _error != null
-            ? Text(_error!)
+            ? Padding(
+                padding: const EdgeInsets.all(24),
+                child: Text(_error!, style: const TextStyle(color: Colors.white)),
+              )
             : _controller == null
-                ? const CircularProgressIndicator()
+                ? const CircularProgressIndicator(color: AppColors.primary)
                 : AspectRatio(
                     aspectRatio: _controller!.value.aspectRatio,
                     child: Stack(
                       alignment: Alignment.bottomCenter,
                       children: [
                         VideoPlayer(_controller!),
-                        VideoProgressIndicator(_controller!, allowScrubbing: true),
+                        VideoProgressIndicator(
+                          _controller!,
+                          allowScrubbing: true,
+                          colors: const VideoProgressColors(
+                            playedColor: AppColors.primary,
+                            bufferedColor: Colors.white24,
+                            backgroundColor: Colors.white10,
+                          ),
+                        ),
                       ],
                     ),
                   ),
@@ -67,6 +84,7 @@ class _VideoPlayerScreenState extends State<VideoPlayerScreen> {
       floatingActionButton: _controller == null
           ? null
           : FloatingActionButton(
+              backgroundColor: AppColors.primary,
               onPressed: () {
                 setState(() {
                   _controller!.value.isPlaying ? _controller!.pause() : _controller!.play();
@@ -74,6 +92,7 @@ class _VideoPlayerScreenState extends State<VideoPlayerScreen> {
               },
               child: Icon(
                 _controller!.value.isPlaying ? Icons.pause : Icons.play_arrow,
+                color: Colors.white,
               ),
             ),
     );
